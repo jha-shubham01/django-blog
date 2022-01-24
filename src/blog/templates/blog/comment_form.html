@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="card mt-3 border-0">
+        <div class="card-body">
+            <h4>New comment</h4>
+            <hr>
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary float-end">Comment</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        new MediumEditor('.content');
+    </script>
+
+{% endblock %}

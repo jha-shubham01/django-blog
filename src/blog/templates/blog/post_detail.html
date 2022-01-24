@@ -1,0 +1,55 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="card mt-3 border-0">
+    <img src="{% get_media_prefix %}{{ post.image }}" class="card-img-top" alt="{{ post.title }}">
+    <div class="card-body">
+        {% if user.is_authenticated and post.author.id == request.user.id %}
+            <a href="{% url 'post_remove' pk=post.pk %}" class="float-end btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+            {% if post.status == 0 or post.status == 2 %}
+                <a href="{% url 'post_publish' pk=post.pk %}" class="float-end btn btn-sm btn-success me-2"><i class="bi bi-file-earmark-check"></i></a>
+            {% else %}
+                <a href="{% url 'post_archive' pk=post.pk %}" class="float-end btn btn-sm btn-danger me-2"><i class="bi bi-file-earmark-excel"></i></a>
+            {% endif %}
+            <a href="{% url 'post_edit' pk=post.pk %}" class="float-end btn btn-sm btn-secondary me-2"><i class="bi bi-pencil"></i></a>
+        {% endif %}
+
+        <h2 class="card-title">{{ post.title|title }}</h2>
+        <small>
+            {{ post.author.username|title }} - {{ post.created_on|date:"M d, Y" }}
+        </small>
+        <p class="card-text">{{ post.content|safe|linebreaksbr }}</p>
+    </div>
+    
+    <div class="card-body pt-0">
+        <hr>
+        <div class="row">
+            <div class="col"><h5>Comments:</h5></div>
+            <div class="col text-end">
+                <a class="btn btn-primary mb-3" href="{% url 'add_comment' pk=post.pk %}">Add comment</a>
+            </div>
+        </div>
+        {% for comment in post.comments.all %}
+            {% if comment.approved_comment or user.is_authenticated and post.author.id == request.user.id %}
+
+                <div class="alert alert-secondary mt-1" role="alert">
+                    <strong>{{ comment.author|title }}</strong> 
+                    <small>{{ comment.created_date|timesince }}</small>
+                    {{ comment.text|safe }}
+                    {% if not comment.approved_comment %}
+                        <a class="btn btn-sm btn-danger" href="{% url 'comment_remove' pk=comment.pk %}"><span class="bi bi-trash"></span></a>
+                        <a class="btn btn-sm btn-success" href="{% url 'comment_approve' pk=comment.pk %}"><span class="bi bi-check"></span></a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% empty %}
+            <div class="alert alert-secondary mt-1" role="alert">
+                No comments yet.
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

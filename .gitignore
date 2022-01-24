@@ -1,0 +1,73 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+.venv/
+*.egg-info/
+.installed.cfg
+*.egg
+node_modules/
+.local/
+.python_history
+.bash_history
+.ipython/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.cache/
+.tox/
+.coverage
+.eslintcache
+.stylelintcache
+
+# Translations
+*.mo
+*.pot
+
+# Sphinx documentation
+docs/_build/
+
+/_assets/
+*.dump
+*.dump.gz
+docker-compose.override.yml
+
+# Miscellaneous
+.idea/
+*.log
+*.orig
+.DS_Store
+.psql_history
+.vs
+.vscode
+celerybeat-schedule
+celerybeat.pid
+.dir-locals-2.el
+
+db.sqlite*
+static*
+media*
+profile*
+venv*
+env*
+*env*
+.#*
+*#*

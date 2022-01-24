@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="card mt-3 border-0">
+  <div class="card-body">
+    <form action="" method="post">
+      {% csrf_token %}
+      <img src="{% get_media_prefix %}{{ post.image }}" class="card-img-top" alt="{{ post.title }}">
+      <h5 class="text-title text-center mt-3">
+        Are you sure you want to delete "{{ post }}"?
+      </h5>
+      <p class="text-center">
+        <small><i>Note: All the comments will also be deleted.</i></small>
+      </p>
+      <p class="text-end">
+        <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-secondary">Cancel</a>
+        <input class="btn btn-danger" type="submit" value="Confirm" />
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}
