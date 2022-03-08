@@ -21,7 +21,7 @@ class PostDetail(generic.DetailView):
 
 
 class CreatePost(LoginRequiredMixin, generic.CreateView):
-    login_url = "/login/"
+    login_url = reverse_lazy("login")
     success_url = reverse_lazy("post_list")
 
     form_class = PostForm
@@ -46,7 +46,7 @@ class CreatePost(LoginRequiredMixin, generic.CreateView):
 
 
 class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
-    login_url = "/login/"
+    login_url = reverse_lazy("login")
     # success_url = reverse_lazy("post_detail", kwargs={'pk': post.id})
 
     # model = Post
@@ -71,7 +71,7 @@ class PostDelete(LoginRequiredMixin, generic.DeleteView):
 
 
 class PostDraftList(LoginRequiredMixin, generic.ListView):
-    login_url = "/login/"
+    login_url = reverse_lazy("login")
     queryset = Post.objects.filter(status=0).order_by("-created_on")
 
     def get_queryset(self):
@@ -79,7 +79,7 @@ class PostDraftList(LoginRequiredMixin, generic.ListView):
 
 
 class PostArchivedList(LoginRequiredMixin, generic.ListView):
-    login_url = "/login/"
+    login_url = reverse_lazy("login")
     queryset = Post.objects.filter(status=2).order_by("-created_on")
 
     def get_queryset(self):
